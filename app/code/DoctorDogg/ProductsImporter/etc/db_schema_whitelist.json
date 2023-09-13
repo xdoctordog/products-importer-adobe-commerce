@@ -1,0 +1,29 @@
+{
+    "doctordogg_productsimporter_importfiles": {
+        "column": {
+            "entity_id": true,
+            "file_path": true,
+            "is_processed": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "DOCTORDOGG_PRODUCTSIMPORTER_IMPORTFILES_FILE_PATH": true
+        }
+    },
+    "doctordogg_productsimporter_buffer_product_status": {
+        "column": {
+            "entity_id": true,
+            "buffer_product_id": true,
+            "product_exists_after_import_status": true,
+            "validation_errors": true
+        },
+        "index": {
+            "IDX_8F7230967A35D7CA30F826574F18F190": true,
+            "DOCTORDOGG_PRDSIMPORTER_BUFFER_PRD_STS_VALIDATION_ERRORS": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "DOCTORDOGG_PRDSIMPORTER_BUFFER_PRD_STS_BUFFER_PRD_ID": true
+        }
+    }
+}

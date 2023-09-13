@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Communication/etc/communication.xsd">
+    <topic
+        name="doctordogg_productsimporter_topic"
+        is_synchronous="false"
+        request="DoctorDogg\ProductsImporter\Api\Data\RabbitMQMessageInterface"
+    >
+        <handler
+            name="doctordogg.productsimporter.handler"
+            type="DoctorDogg\ProductsImporter\Model\RabbitMQ\Processor\ImportProcessor"
+            method="import"
+        />
+    </topic>
+</config>

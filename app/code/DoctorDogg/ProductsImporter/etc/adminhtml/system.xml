@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="doctordogg_extensions_configuration" translate="label" sortOrder="500">
+            <label>Doctor Dogg</label>
+        </tab>
+        <section id="doctordogg_productsimporter_settings" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Products Importer</label>
+            <tab>doctordogg_extensions_configuration</tab>
+            <resource>DoctorDoggProductsImporter_Configuration::config</resource>
+            <group id="general_setting_group" translate="label comment" type="text" sortOrder="10" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>General Setting [Group]</label>
+                <attribute type="expanded">1</attribute>
+
+                <field id="import_knife_switcher" translate="label" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Import Knife Switcher</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[
+                            Knife switch with which you can enable / disable importing process.<br/>
+                            OFF:<br />
+                    &nbsp;&nbsp;- No adding to the `doctordogg_productsimporter_buffer_product` <br />
+                    &nbsp;&nbsp;- No starting importing for products which are planned for importing: <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;buffer products are marking as <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;a) NOT planned for importing <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;b) NOT imported <br />
+                                So these buffer products are returning back to the products which can be imported.
+                        ]]></comment>
+                </field>
+
+                <field id="number_products_to_be_scheduled_at_time" type="text" translate="label comment"
+                       sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Number of products to be scheduled at time(at one cron-run) [1-100]</label>
+                    <comment>
+                        <![CDATA[Each job cron run can schedule this Nth number of products to import [from 1 to 100].]]>
+                    </comment>
+                    <validate>required-entry validate-digits validate-not-negative-number validate-digits-range digits-range-1-100</validate>
+                </field>
+
+                <field id="check_product_exists_after_import" translate="label" type="select" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Check if product exists after import</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[
+                            Perhaps sometimes even product validation before import cannot give full information<br />
+                            about whether it will actually be imported into Magento.<br />
+                            This switch serves to verify after import whether the imported product actually exists.<br />
+                            If the product seemed to be imported, but the check showed that there is no such product,<br />
+                            errors will be added to such a buffer product status.<br />
+                        ]]></comment>
+                </field>
+
+                <field id="number_columns_in_temporary_buffer_product_table" type="text" translate="label comment"
+                       sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Number of columns in temporary buffer product table</label>
+                    <comment>
+                        <![CDATA[
+                            <h6></h6>
+                            Number of columns in temporary buffer product table doctordogg_productsimporter_buffer_product for saving all the product's info.</br>
+                            This value should be equal or more than product's fields/columns in import file.</br>
+                            <span style="color:red">Don't update this value if you are not sure where it might lead.</span></br>
+                            </br>
+                            <span style="color:red">[default] COLLATE='utf8mb3_general_ci': this value <= 85</span></br>
+                            <h6 style="color:red">85 X 3[bytes for one symbol] X 255[default length of one field in "Doctor Dogg ProductsImporter"] = 65025 < 65535 [length of one line in MariaDB table ]</h6>
+
+                            <span style="color:red">COLLATE='utf8mb4_general_ci': this value <= 64</span></br>
+                            <h6 style="color:red">64 X 4[bytes for one symbol] X 255[default length of one field in "Doctor Dogg ProductsImporter"] = 65280 < 65535 [length of one line in MariaDB table ]</h6>
+
+                        ]]>
+                    </comment>
+                    <validate>required-entry validate-digits validate-not-negative-number validate-digits-range digits-range-1-21675</validate>
+                </field>
+
+                <field id="default_field_length" type="text" translate="label comment"
+                       sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Default field length</label>
+                    <comment>
+                        <![CDATA[
+                            This length should be the length (better maximum length) of the field value from the import file [1 - 255 for varchar]
+                        ]]>
+                    </comment>
+                    <validate>required-entry validate-digits validate-not-negative-number</validate>
+                </field>
+
+            </group>
+            <group id="magento_core_product_attributes_group" translate="label comment" type="text"
+                   sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <comment>
+                    <![CDATA[
+                        <div style="color:red; font-weight: bold">
+                            Please specify ALL required Magento Core Product Attributes!<br/>
+                            ALL items that you can find in "Required Product Attribute" dropdown/selectbox<br/>
+                            should be presented<br/>
+                        </div>
+                    ]]>
+                </comment>
+                <label>Magento Required Core Product Attributes [Group]</label>
+                <attribute type="expanded">1</attribute>
+                <field id="product_required_core_attributes" translate="label" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Magento Required Core Product Attributes [Field]</label>
+                    <frontend_model>DoctorDogg\ProductsImporter\Block\Adminhtml\Form\Field\MagentoCoreProductAttribute</frontend_model>
+                    <backend_model>DoctorDogg\ProductsImporter\Model\System\Config\Backend\ProductCoreAttributes</backend_model>
+                </field>
+            </group>
+            <group id="additional_product_attributes_group" translate="label comment" type="text"
+                   sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <comment>
+                    <![CDATA[
+                        <div style="color:red; font-weight: bold">
+                            ALERT!<br/>
+                            1) Applying these settings should only be done once before all products are fully imported.<br/>
+                            <br/>
+                            2) Please note that these settings should be applied before starting import process.<br/>
+                            <br/>
+                            3) Actions:<br/>
+                             - Removing the product attribute from the list will remove the attribute and result<br/>
+                            in possible data loss if the products have already been imported with this data.<br/>
+                        </div>
+                        <div style="color:green; font-weight: bold">
+                         - Adding a new attribute is safe.<br/>
+                         - At the time of saving this config, it will be checked whether such attributes already exist for the product.<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;a) If such attributes exist, no action will be taken (so saving without changes is safe).<br/>
+                            <bold style="color:red;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;b) If the attribute that was in the list -- is missing when saving --<br/>
+                                then the product attribute will be deleted and data may be lost.<br/>
+                            </bold>
+                            &nbsp;&nbsp;&nbsp;&nbsp;c) If an attribute appeared which was not there before,<br/>
+                                it will be added at the time of saving.(which is also safe)<br/>
+                        </div>
+                    ]]>
+                </comment>
+                <label>Additional Product Attributes [Group]</label>
+                <attribute type="expanded">1</attribute>
+                <field id="product_additional_attributes" translate="label comment"
+                       sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Product Additional Attributes|Fields</label>
+                    <frontend_model>DoctorDogg\ProductsImporter\Block\Adminhtml\Form\Field\ProductAdditionalAttributes</frontend_model>
+                    <backend_model>DoctorDogg\ProductsImporter\Model\System\Config\Backend\ProductAdditionalAttributes</backend_model>
+                    <comment><![CDATA[For the product attribute name please use only a-z, A-Z 0-9 and underscore symbols.]]></comment>
+                </field>
+                <field id="remove_previously_added_custom_attributes" translate="label" type="select"
+                       sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Remove previously added custom attributes if they are no longer present in the list??</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

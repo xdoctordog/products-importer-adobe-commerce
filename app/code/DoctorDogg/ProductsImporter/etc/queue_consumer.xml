@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/consumer.xsd">
+    <consumer name="doctordogg_productsimporter_topic_queue_consumer"
+              queue="doctordogg_productsimporter_topic_queue"
+              connection="db"
+              maxMessages="5000"
+              consumerInstance="Magento\Framework\MessageQueue\Consumer"
+              handler="DoctorDogg\ProductsImporter\Model\RabbitMQ\Processor\ImportProcessor::import"
+    />
+</config>

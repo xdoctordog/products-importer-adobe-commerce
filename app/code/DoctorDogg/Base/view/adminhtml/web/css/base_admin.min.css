@@ -1,0 +1,13 @@
+
+.admin__menu .item-doctordogg-base-extension > a:before {
+    /**
+     * Re-write the existing content to prevent using the default image for the menu.
+     **/
+    content: ''!important;
+
+    background: url(../images/logo-medium.png) no-repeat;
+    /**
+     * height should be the same as original logo image height.
+     */
+    height: 28px!important;
+}

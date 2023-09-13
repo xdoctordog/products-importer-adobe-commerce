@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="DoctorDogg_Base::doctordogg_base_extension" title="Doctor Dogg" translate="title"
+             module="DoctorDogg_Base" sortOrder="100"
+             dependsOnModule="DoctorDogg_Base"
+             resource="DoctorDogg_Base::doctordogg_base_extension"
+        />
+    </menu>
+</config>

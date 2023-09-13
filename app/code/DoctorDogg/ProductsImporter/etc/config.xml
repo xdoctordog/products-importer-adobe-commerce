@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <doctordogg_productsimporter_settings>
+            <general_setting_group>
+                <!--
+                    By default, importing process is turned off.
+                <!-->
+                <import_knife_switcher>0</import_knife_switcher>
+
+                <!--
+                    Number of products that will be planned for importing at one time - at one cron-job-run.
+                <!-->
+                <number_products_to_be_scheduled_at_time>5</number_products_to_be_scheduled_at_time>
+
+                <!--
+                    Should we check if product exists, after import.
+                <!-->
+                <check_product_exists_after_import>1</check_product_exists_after_import>
+
+                <!--
+                    Number of columns for storing the product's info in temporary table.
+                <!-->
+                <number_columns_in_temporary_buffer_product_table>85</number_columns_in_temporary_buffer_product_table>
+
+                <!--
+                    Default field length of the temporary buffer product's table.
+                <!-->
+                <default_field_length>255</default_field_length>
+            </general_setting_group>
+            <magento_core_product_attributes_group>
+                <!--
+                    Data on required product fields are filled in for example.
+                <!-->
+                <product_required_core_attributes>{"_1689858628813_813":{"required_product_attribute":"sku","required_product_attribute_position_import_file":"0","required_product_attribute_default_value":""},"_1689858630201_201":{"required_product_attribute":"product_type","required_product_attribute_position_import_file":"1","required_product_attribute_default_value":""},"_1689858630738_738":{"required_product_attribute":"name","required_product_attribute_position_import_file":"2","required_product_attribute_default_value":""},"_1689858631216_216":{"required_product_attribute":"price","required_product_attribute_position_import_file":"3","required_product_attribute_default_value":""},"_1689858631875_875":{"required_product_attribute":"url_key","required_product_attribute_position_import_file":"4","required_product_attribute_default_value":""},"_1689858633990_990":{"required_product_attribute":"_attribute_set","required_product_attribute_position_import_file":"5","required_product_attribute_default_value":"Default"}}</product_required_core_attributes>
+            </magento_core_product_attributes_group>
+            <additional_product_attributes_group>
+                <!--
+                    By default, we are not going to remove the attributes even if they are not presented in list.
+                <!-->
+                <remove_previously_added_custom_attributes>0</remove_previously_added_custom_attributes>
+            </additional_product_attributes_group>
+        </doctordogg_productsimporter_settings>
+    </default>
+</config>

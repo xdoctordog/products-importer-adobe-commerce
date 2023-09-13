@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <!--
+            Connection to module: DoctorDogg_Base
+        <!-->
+        <add id="DoctorDogg_ProductsImporter::import_files_tab" title="Import files tab" translate="title"
+             module="DoctorDogg_ProductsImporter" sortOrder="10"
+             parent="DoctorDogg_Base::doctordogg_base_extension"
+             resource="DoctorDogg_ProductsImporter::import_files_tab"
+        />
+        <add id="DoctorDogg_ProductsImporter::import_files_list" title="Import files" translate="title"
+             module="DoctorDogg_ProductsImporter" sortOrder="10" parent="DoctorDogg_ProductsImporter::import_files_tab"
+             action="doctordogg_productsimporter/import_files_list/index"
+             resource="DoctorDogg_ProductsImporter::import_files_list"
+        />
+
+        <!--
+            We need to have at least one more block with links to have the names of the tabs for each tabs.
+        <!-->
+        <add id="DoctorDogg_ProductsImporter::buffer_products_tab" title="Buffer products tab" translate="title"
+             module="DoctorDogg_ProductsImporter" sortOrder="20"
+             parent="DoctorDogg_Base::doctordogg_base_extension"
+             resource="DoctorDogg_ProductsImporter::just_tab"
+        />
+        <add id="DoctorDogg_ProductsImporter::buffer_product_list" title="Buffer products" translate="title"
+             module="DoctorDogg_ProductsImporter" sortOrder="10" parent="DoctorDogg_ProductsImporter::buffer_products_tab"
+             action="doctordogg_productsimporter/bufferproduct/bufferproductlist"
+             resource="DoctorDogg_ProductsImporter::buffer_product_list"
+        />
+
+    </menu>
+</config>

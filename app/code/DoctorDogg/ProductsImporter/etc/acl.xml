@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="DoctorDogg_Base::doctordogg_base_extension" title="DD: Base Extension" sortOrder="10" >
+                    <resource id="DoctorDogg_ProductsImporter::import_files_tab" title="Import Files Tab" sortOrder="10">
+                        <resource id="DoctorDogg_ProductsImporter::import_files_list" title="Import Files List" translate="title" sortOrder="10" />
+                        <resource id="DoctorDogg_ProductsImporter::import_files_edit" title="Import Files Edit" translate="title" sortOrder="20" />
+                        <resource id="DoctorDogg_ProductsImporter::import_files_new" title="Import Files New" translate="title" sortOrder="30" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

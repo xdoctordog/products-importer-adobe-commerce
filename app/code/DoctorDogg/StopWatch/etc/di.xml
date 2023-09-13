@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--
+        The class which allows you to store the date time in milliseconds and then get delta of some process.
+    -->
+    <preference
+        for="\DoctorDogg\StopWatch\Api\StopWatchInterface"
+        type="\DoctorDogg\StopWatch\Model\StopWatch"
+    />
+</config>

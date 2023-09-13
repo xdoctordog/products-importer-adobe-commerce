@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/queue.xsd">
+    <broker topic="doctordogg_productsimporter_topic" exchange="magento">
+        <queue name="doctordogg_productsimporter_topic_queue"
+               consumer="doctordogg_productsimporter_topic_queue_consumer"
+               handler="DoctorDogg\ProductsImporter\Model\RabbitMQ\Processor\ImportProcessor::import"
+        />
+    </broker>
+</config>

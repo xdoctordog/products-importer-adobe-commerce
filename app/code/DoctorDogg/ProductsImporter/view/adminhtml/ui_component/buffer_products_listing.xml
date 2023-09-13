@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">buffer_products_listing.buffer_products_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>buffer_products_columns</spinner>
+        <deps>
+            <dep>buffer_products_listing.buffer_products_listing_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource name="buffer_products_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="dataScope" xsi:type="string">filters.store_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>DoctorDogg_ProductsImporter::buffer_product_list</aclResource>
+
+        <dataProvider class="DoctorDogg\ProductsImporter\Ui\DataProvider\BufferProduct\BufferProductProvider"
+                      name="buffer_products_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+
+        <filters name="listing_filters">
+            <filterSelect name="store_id" provider="${ $.parentName }">
+                <settings>
+                    <options class="Magento\Store\Ui\Component\Listing\Column\Store\Options"/>
+                    <caption translate="true">All Store Views</caption>
+                    <label translate="true">Store View</label>
+                    <dataScope>store_id</dataScope>
+                </settings>
+            </filterSelect>
+        </filters>
+        <paging name="listing_paging" />
+    </listingToolbar>
+
+    <columns name="buffer_products_columns" class="Magento\Ui\Component\Listing\Columns">
+        <selectionsColumn name="ids" sortOrder="0">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="entity_id" sortOrder="10">
+            <settings>
+                <addField>true</addField>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="doctor_dogg_is_planned_for_import" sortOrder="20">
+            <settings>
+                <addField>true</addField>
+                <filter>text</filter>
+                <bodyTmpl>DoctorDogg_ProductsImporter/grid/cells/preserved</bodyTmpl>
+                <label translate="true">Is planned for import</label>
+            </settings>
+        </column>
+        <column name="doctor_dogg_is_already_imported" sortOrder="30">
+            <settings>
+                <addField>true</addField>
+                <filter>text</filter>
+                <bodyTmpl>DoctorDogg_ProductsImporter/grid/cells/preserved</bodyTmpl>
+                <label translate="true">Is already imported</label>
+            </settings>
+        </column>
+        <column name="product_exists_after_import_status" sortOrder="40"
+                class="DoctorDogg\ProductsImporter\Ui\Component\Listing\Column\ProductExistsAfterImportStatus"
+        >
+            <settings>
+                <filter>text</filter>
+                <bodyTmpl>DoctorDogg_ProductsImporter/grid/cells/preserved</bodyTmpl>
+                <label translate="true">Product exists after import status</label>
+            </settings>
+        </column>
+
+        <column name="validation_errors" sortOrder="50"
+                class="DoctorDogg\ProductsImporter\Ui\Component\Listing\Column\ValidationErrors"
+        >
+            <settings>
+                <filter>text</filter>
+                <bodyTmpl>DoctorDogg_ProductsImporter/grid/cells/preserved</bodyTmpl>
+                <label translate="true">Validation errors</label>
+            </settings>
+        </column>
+    </columns>
+</listing>

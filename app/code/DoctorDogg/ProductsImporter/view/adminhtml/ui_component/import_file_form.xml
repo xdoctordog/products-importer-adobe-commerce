@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">import_file_form.import_file_form_data_source</item>
+            <item name="deps" xsi:type="string">import_file_form.import_file_form_data_source</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="spinner" xsi:type="string">general</item>
+        <item name="label" xsi:type="string" translate="true">Import File Form [label]</item>
+
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+        </item>
+
+        <item name="reverseMetadataMerge" xsi:type="boolean">true</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="save"
+                    class="DoctorDogg\ProductsImporter\Block\Adminhtml\ImportFile\Edit\Button\Save"/>
+            <button name="delete"
+                    class="DoctorDogg\ProductsImporter\Block\Adminhtml\ImportFile\Edit\Button\Delete"/>
+            <button name="reset"
+                    class="DoctorDogg\ProductsImporter\Block\Adminhtml\ImportFile\Edit\Button\Reset"/>
+            <button name="back"
+                    class="DoctorDogg\ProductsImporter\Block\Adminhtml\ImportFile\Edit\Button\Back"/>
+        </buttons>
+        <namespace>import_file_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>import_file_form.import_file_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="import_file_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+
+        <settings>
+            <validateUrl path="doctordogg_productsimporter/import_files_list/validate"/>
+            <submitUrl path="doctordogg_productsimporter/import_files_list/save"/>
+        </settings>
+        <aclResource>DoctorDogg_ProductsImporter::manage</aclResource>
+
+        <dataProvider class="DoctorDogg\ProductsImporter\Ui\DataProvider\ImportFile\Form\ImportFileDataProvider"
+                      name="import_file_form_data_source" >
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="general" sortOrder="10">
+        <settings>
+            <label>Import File</label>
+        </settings>
+        <field name="file_path" formElement="input">
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">File path</label>
+                <scopeLabel>[GLOBAL]</scopeLabel>
+                <visible>true</visible>
+                <dataScope>file_path</dataScope>
+            </settings>
+        </field>
+        <field name="is_processed" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Is processed</label>
+                <scopeLabel>[GLOBAL]</scopeLabel>
+                <dataScope>is_processed</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <options class="Magento\Config\Model\Config\Source\Yesno"/>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+    </fieldset>
+</form>

@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="doctordogg_productsimporter_importfiles" engine="innodb" comment="Import Files">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="varchar" name="file_path" nullable="true" length="255" comment="File path"/>
+        <column xsi:type="boolean" name="is_processed" nullable="true" default="0" comment="Sent" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="DOCTORDOGG_PRODUCTSIMPORTER_IMPORTFILES_FILE_PATH">
+            <column name="file_path"/>
+        </constraint>
+    </table>
+
+    <!--
+        Entity: \DoctorDogg\ProductsImporter\Api\Data\BufferProductStatusInterface
+    <!-->
+    <table name="doctordogg_productsimporter_buffer_product_status" engine="innodb" comment="Buffer Product Status">
+        <!--
+            It looks like we can't add constraint because the main table `doctordogg_productsimporter_buffer_product`
+            is created dynamically and we don't know the logic on how we should
+
+            @todo: Clean processed buffer products by cron. Should have the switcher ON/OFF - if we should clean
+
+            Let's add constraint with no action. In future we can update it if needed.
+        <!-->
+
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false"
+                identity="true" comment="Entity ID"/>
+
+        <column xsi:type="int" name="buffer_product_id" padding="10" unsigned="true" nullable="false"
+                identity="false" comment="Buffer Product ID"/>
+        <!--
+            CHECK_PRODUCT_EXISTS_AFTER_IMPORT__PRODUCT_EXISTS: 1
+            CHECK_PRODUCT_EXISTS_AFTER_IMPORT__PRODUCT_DOES_NOT_EXIST: 2
+            CHECK_PRODUCT_EXISTS_AFTER_IMPORT__PRODUCT_DOES_NOT_CHECKED: 3
+        <!-->
+        <column xsi:type="int" name="product_exists_after_import_status" unsigned="true" nullable="false"
+                identity="false" comment="Product exists after import status"/>
+        <column xsi:type="longtext" name="validation_errors" nullable="true" comment="Validation Errors"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique"
+            referenceId="DOCTORDOGG_PRDSIMPORTER_BUFFER_PRD_STS_BUFFER_PRD_ID"
+        >
+            <column name="buffer_product_id"/>
+        </constraint>
+        <index
+            referenceId="DCTRDGG_PRDSMPRTR_BFFR_PRD_STS_EXIST_AFTR_IMPRT"
+            indexType="btree"
+        >
+            <column name="product_exists_after_import_status"/>
+        </index>
+        <index
+            referenceId="DOCTORDOGG_PRDSIMPORTER_BUFFER_PRD_STS_VALIDATION_ERRORS"
+            indexType="btree"
+        >
+            <column name="validation_errors"/>
+        </index>
+    </table>
+</schema>
